@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Monogame_Rotation_Tutorial
 {
@@ -53,7 +54,8 @@ namespace Monogame_Rotation_Tutorial
                 Exit();
 
             // TODO: Add your update logic here
-            ship
+            shipDirection = mouseState.Position.ToVector2() - shipRect.Center.ToVector2();
+            shipAngle = (float)Math.Atan2(shipDirection.Y, shipDirection.X);
 
             base.Update(gameTime);
         }
@@ -65,7 +67,8 @@ namespace Monogame_Rotation_Tutorial
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(shipTexture, shipRect, null, Color.White, shipAngle, new Vector2(shipTexture.Width / 2, shipTexture.Height / 2), SpriteEffects.None, 1f);
+            _spriteBatch.Draw(rectTexture, shipRect, Color.Red);
+            _spriteBatch.Draw(shipTexture, new Rectangle(shipRect.Center, shipRect.Size), null, Color.White, shipAngle, new Vector2(shipTexture.Width / 2, shipTexture.Height / 2), SpriteEffects.None, 1f);
 
             _spriteBatch.End();
 
