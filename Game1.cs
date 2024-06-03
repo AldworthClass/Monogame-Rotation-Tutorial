@@ -57,6 +57,14 @@ namespace Monogame_Rotation_Tutorial
             shipDirection = mouseState.Position.ToVector2() - shipRect.Center.ToVector2();
             shipAngle = (float)Math.Atan2(shipDirection.Y, shipDirection.X);
 
+            if (shipDirection != Vector2.Zero)
+            {
+                shipDirection.Normalize();
+                shipPosition += shipDirection * 1.5f;
+                shipRect.Location = shipPosition.ToPoint();
+            }
+            
+
             base.Update(gameTime);
         }
 
@@ -67,7 +75,10 @@ namespace Monogame_Rotation_Tutorial
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
+            // Draws hitbox
             _spriteBatch.Draw(rectTexture, shipRect, Color.Red);
+
+            // Rotates texture and draws it over hitbox
             _spriteBatch.Draw(shipTexture, new Rectangle(shipRect.Center, shipRect.Size), null, Color.White, shipAngle, new Vector2(shipTexture.Width / 2, shipTexture.Height / 2), SpriteEffects.None, 1f);
 
             _spriteBatch.End();
