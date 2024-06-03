@@ -12,6 +12,7 @@ namespace Monogame_Rotation_Tutorial
 
         Texture2D shipTexture;
         float shipAngle;
+        float shipSpeed;
         Vector2 shipPosition;
         Rectangle shipRect;
         Vector2 shipDirection; //new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
@@ -31,6 +32,7 @@ namespace Monogame_Rotation_Tutorial
         {
             // TODO: Add your initialization logic here
             shipAngle = 0;
+            shipSpeed = 1.75f;
             shipPosition = new Vector2(100, 100);
             shipRect = new Rectangle(shipPosition.ToPoint(), new Point(50, 50));
             shipDirection = Vector2.Zero;
@@ -60,11 +62,10 @@ namespace Monogame_Rotation_Tutorial
             if (shipDirection != Vector2.Zero)
             {
                 shipDirection.Normalize();
-                shipPosition += shipDirection * 1.5f;
+                shipPosition += shipDirection * shipSpeed;
                 shipRect.Location = shipPosition.ToPoint();
             }
             
-
             base.Update(gameTime);
         }
 
